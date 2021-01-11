@@ -1,5 +1,6 @@
 package core.basesyntax.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Car {
@@ -8,10 +9,10 @@ public class Car {
     private Manufacturer manufacturer;
     private List<Driver> drivers;
 
-    public Car(String model, Manufacturer manufacturer, List<Driver> drivers) {
+    public Car(String model, Manufacturer manufacturer) {
         this.model = model;
         this.manufacturer = manufacturer;
-        this.drivers = drivers;
+        drivers = new ArrayList<>();
     }
 
     public void setId(Long id) {
@@ -30,5 +31,25 @@ public class Car {
         this.drivers = drivers;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public String getModel() {
+        return model;
+    }
+
+    public Manufacturer getManufacturer() {
+        return manufacturer;
+    }
+
+    public List<Driver> getDrivers() {
+        return drivers;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" + "id=" + id + ", model='" + model + '\''
+                + ", manufacturer=" + manufacturer + ", drivers=" + drivers + '}';
+    }
 }

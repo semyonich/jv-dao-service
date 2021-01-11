@@ -21,4 +21,22 @@ public class Manufacturer {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    @Override
+    public String toString() {
+        return "Manufacturer{" + "id=" + id + ", name='" + name + '\''
+                + ", country='" + country + '\'' + '}';
+    }
 }
