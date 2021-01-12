@@ -1,0 +1,17 @@
+package core.basesyntax.db;
+
+import core.basesyntax.model.Manufacturer;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Storage {
+    public static final List<Manufacturer> manufacturers = new ArrayList<>();
+    private static Long manufacturerId = 0L;
+
+    public static Manufacturer addManufacturer(Manufacturer manufacturer) {
+        manufacturerId++;
+        manufacturer.setId(manufacturerId);
+        manufacturers.add(manufacturer);
+        return manufacturer;
+    }
+}
