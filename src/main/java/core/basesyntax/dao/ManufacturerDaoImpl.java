@@ -30,10 +30,10 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
         for (int i = 0; i < Storage.manufacturers.size(); i++) {
             if (Storage.manufacturers.get(i).getId().equals(manufacturer.getId())) {
                 Storage.manufacturers.set(i, manufacturer);
-                return Storage.manufacturers.get(i);
+                break;
             }
         }
-        return Storage.addManufacturer(manufacturer);
+        return manufacturer;
     }
 
     @Override
