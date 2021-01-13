@@ -1,1 +1,0 @@
-CREATE SCHEMA `taxi-service` DEFAULT CHARACTER SET utf8 ;

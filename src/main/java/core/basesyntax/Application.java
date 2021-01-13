@@ -19,21 +19,23 @@ public class Application {
         manufacturerService.create(new Manufacturer("Tesla", "USA"));
         manufacturerService.create(new Manufacturer("BMW", "Germany"));
         System.out.println("Manufacturers list: " + manufacturerService.getAll());
-        System.out.println("Manufacturer with id=1: "
-                + manufacturerService.get(1L));
+        System.out.println("Manufacturer with id=2: "
+                + manufacturerService.get(2L));
         Manufacturer newManufacturer = new Manufacturer("Toyota", "Japan");
         newManufacturer.setId(2L);
         System.out.println("Updated manufacturer with id=2: "
                 + manufacturerService.update(newManufacturer));
         System.out.println("New manufacturer list: " + manufacturerService.getAll());
-        System.out.println("Deleting manufacturer with id=2: "
-                + manufacturerService.delete(2L));
+        System.out.println("Deleting manufacturer with id=6: "
+                + manufacturerService.delete(6L));
         System.out.println("Manufacturer list after deleting id=2: "
                 + manufacturerService.getAll());
-        manufacturerService.create(new Manufacturer("Tesla", "USA")).setId(2L);
+        Manufacturer tesla = new Manufacturer("Tesla", "USA");
+        tesla.setId(2L);
+        manufacturerService.update(tesla);
         System.out.println("Restoring initial state. Manufacturers are: "
                 + manufacturerService.getAll());
-        /* Drivers testing*/
+        // Drivers testing*/
         DriverService driverService = (DriverService) injector
                 .getInstance(DriverService.class);
         driverService.create(new Driver("Alice", "123456"));
@@ -48,7 +50,7 @@ public class Application {
         System.out.println("Driver list after deleting id=2: " + driverService.getAll());
         driverService.create(new Driver("Bruce", "654321")).setId(2L);
         System.out.println("Restoring initial state. Drivers are: " + driverService.getAll());
-        /* Cars testing*/
+        // Cars testing
         CarService carService = (CarService) injector
                 .getInstance(CarService.class);
         carService.create(new Car("Lanos", manufacturerService.get(1L)));

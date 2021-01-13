@@ -1,5 +1,6 @@
-package core.basesyntax.dao;
+package core.basesyntax.dao.impl;
 
+import core.basesyntax.dao.CarDao;
 import core.basesyntax.db.Storage;
 import core.basesyntax.lib.Dao;
 import core.basesyntax.model.Car;
