@@ -3,6 +3,8 @@ package core.basesyntax.dao;
 import core.basesyntax.db.Storage;
 import core.basesyntax.lib.Dao;
 import core.basesyntax.model.Car;
+import core.basesyntax.model.Driver;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,5 +41,18 @@ public class CarDaoImpl implements CarDao {
     @Override
     public boolean delete(Long id) {
         return Storage.cars.removeIf(i -> i.getId().equals(id));
+    }
+
+    @Override
+    public List<Car> getAllByDriver(Long id) {
+        List<Car> driverCars = new ArrayList<>();
+        for (Car car : Storage.cars) {
+            for (Driver driver : car.getDrivers()) {
+                if (driver.getId().equals(id)) {
+                    driverCars.add(car);
+                }
+            }
+        }
+        return driverCars;
     }
 }

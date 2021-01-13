@@ -5,7 +5,6 @@ import core.basesyntax.lib.Inject;
 import core.basesyntax.lib.Service;
 import core.basesyntax.model.Car;
 import core.basesyntax.model.Driver;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,24 +39,18 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void addDriverToCar(Driver driver, Car car) {
-        carDao.update(car).getDrivers().add(driver);
+        car.getDrivers().add(driver);
+        carDao.update(car);
     }
 
     @Override
     public void removeDriverFromCar(Driver driver, Car car) {
-        carDao.update(car).getDrivers().remove(driver);
+        car.getDrivers().remove(driver);
+        carDao.update(car);
     }
 
     @Override
     public List<Car> getAllByDriver(Long driverId) {
-        List<Car> driverCars = new ArrayList<>();
-        for (Car car : carDao.getAll()) {
-            for (Driver driver : car.getDrivers()) {
-                if (driver.getId().equals(driverId)) {
-                    driverCars.add(car);
-                }
-            }
-        }
-        return driverCars;
+        return carDao.getAllByDriver(driverId);
     }
 }
