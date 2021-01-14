@@ -107,7 +107,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
         try {
             String name = resultSet.getString("manufacturer_name");
             String country = resultSet.getString("manufacturer_country");
-            Long manufacturerId = resultSet.getLong("manufacturer_id");
+            Long manufacturerId = resultSet.getObject("manufacturer_id", Long.class);
             Manufacturer manufacturer = new Manufacturer(name, country);
             manufacturer.setId(manufacturerId);
             return manufacturer;
