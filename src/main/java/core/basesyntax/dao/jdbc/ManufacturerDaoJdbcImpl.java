@@ -30,7 +30,6 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
             if (resultSet.next()) {
                 manufacturer.setId(resultSet.getObject(1, Long.class));
             }
-            resultSet.close();
             return manufacturer;
         } catch (SQLException e) {
             throw new DataProcessingException("Unable to CREATE in DB " + manufacturer, e);
@@ -46,9 +45,8 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                manufacturer = manufacturerMaker(result);
+                manufacturer = makeManufacturer(result);
             }
-            result.close();
         } catch (SQLException e) {
             throw new DataProcessingException("Unable to GET manufacturer from DB, id=" + id, e);
         }
@@ -63,9 +61,8 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
                 PreparedStatement statement = connection.prepareStatement(getAllString)) {
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                outputList.add(manufacturerMaker(result));
+                outputList.add(makeManufacturer(result));
             }
-            result.close();
         } catch (SQLException e) {
             throw new DataProcessingException("Unable GET ALL manufacturers from DB", e);
         }
@@ -103,7 +100,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
         return result > 0;
     }
 
-    private Manufacturer manufacturerMaker(ResultSet resultSet) {
+    private Manufacturer makeManufacturer(ResultSet resultSet) {
         try {
             String name = resultSet.getString("manufacturer_name");
             String country = resultSet.getString("manufacturer_country");
