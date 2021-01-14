@@ -43,9 +43,9 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement statement = connection.prepareStatement(getString)) {
             statement.setLong(1, id);
-            ResultSet result = statement.executeQuery();
-            while (result.next()) {
-                manufacturer = makeManufacturer(result);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                manufacturer = makeManufacturer(resultSet);
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Unable to GET manufacturer from DB, id=" + id, e);
@@ -59,9 +59,9 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
         List<Manufacturer> outputList = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement statement = connection.prepareStatement(getAllString)) {
-            ResultSet result = statement.executeQuery();
-            while (result.next()) {
-                outputList.add(makeManufacturer(result));
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                outputList.add(makeManufacturer(resultSet));
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Unable GET ALL manufacturers from DB", e);
@@ -89,7 +89,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
     @Override
     public boolean delete(Long id) {
         String deleteString = "UPDATE manufacturers SET deleted=true WHERE manufacturer_id=?;";
-        int result = 0;
+        int result;
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement statement = connection.prepareStatement(deleteString)) {
             statement.setLong(1, id);
