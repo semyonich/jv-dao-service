@@ -1,12 +1,11 @@
-package core.basesyntax.dao;
+package core.basesyntax.dao.impl;
 
+import core.basesyntax.dao.ManufacturerDao;
 import core.basesyntax.db.Storage;
-import core.basesyntax.lib.Dao;
 import core.basesyntax.model.Manufacturer;
 import java.util.List;
 import java.util.Optional;
 
-@Dao
 public class ManufacturerDaoImpl implements ManufacturerDao {
     @Override
     public Manufacturer create(Manufacturer manufacturer) {
