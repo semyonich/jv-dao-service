@@ -1,9 +1,10 @@
-package core.basesyntax.service;
+package core.basesyntax.service.impl;
 
 import core.basesyntax.dao.ManufacturerDao;
 import core.basesyntax.lib.Inject;
 import core.basesyntax.lib.Service;
 import core.basesyntax.model.Manufacturer;
+import core.basesyntax.service.ManufacturerService;
 import java.util.List;
 
 @Service

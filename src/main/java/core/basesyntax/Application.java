@@ -40,6 +40,8 @@ public class Application {
                 .getInstance(DriverService.class);
         driverService.create(new Driver("Alice", "123456"));
         driverService.create(new Driver("Bruce", "654321"));
+        driverService.create(new Driver("John", "987654"));
+        driverService.create(new Driver("Donny", "11111"));
         System.out.println("Driver with id=1: " + driverService.get(1L));
         System.out.println("All drivers are: " + driverService.getAll());
         Driver john = new Driver("John", "987654");
@@ -50,19 +52,21 @@ public class Application {
         System.out.println("Driver list after deleting id=2: " + driverService.getAll());
         driverService.create(new Driver("Bruce", "654321")).setId(2L);
         System.out.println("Restoring initial state. Drivers are: " + driverService.getAll());
-        // Cars testing
+        /*Cars testing*/
         CarService carService = (CarService) injector
                 .getInstance(CarService.class);
-        carService.create(new Car("Lanos", manufacturerService.get(1L)));
-        carService.create(new Car("Model S", manufacturerService.get(2L)));
-        carService.create(new Car("X6", manufacturerService.get(3L)));
-        System.out.println("Car with id=1 is: " + carService.get(1L));
+        System.out.println(carService.create(new Car("Lanos", manufacturerService.get(1L))));
+        System.out.println(carService.create(new Car("Model S", manufacturerService.get(2L))));
+        System.out.println(carService.create(new Car("X6", manufacturerService.get(3L))));
+        System.out.println("Car with id=2 is: " + carService.get(2L));
         System.out.println("Cars list: " + carService.getAll());
         Car daewooNexia = new Car("Lanos", manufacturerService.get(1L));
-        daewooNexia.setId(1L);
+        daewooNexia.setId(2L);
+        daewooNexia.getDrivers().add(driverService.get(3L));
+        daewooNexia.getDrivers().add(driverService.get(4L));
         carService.update(daewooNexia);
         System.out.println("After updating car with id=2: " + carService.getAll());
-        System.out.println("Deleting car with iq=1: " + carService.delete(1L));
+        System.out.println("Deleting car with iq=2: " + carService.delete(2L));
         System.out.println("Car list after deleting id=1: " + carService.getAll());
         carService.addDriverToCar(driverService.get(1L), carService.get(3L));
         carService.addDriverToCar(driverService.get(1L), carService.get(2L));

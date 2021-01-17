@@ -32,7 +32,8 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
             }
             return manufacturer;
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to CREATE in DB " + manufacturer, e);
+            throw new DataProcessingException("Unable to CREATE manufacturer in DB "
+                    + manufacturer, e);
         }
     }
 
@@ -64,7 +65,7 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
                 outputList.add(makeManufacturer(resultSet));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable GET ALL manufacturers from DB", e);
+            throw new DataProcessingException("Unable to GET ALL manufacturers from DB", e);
         }
         return outputList;
     }
