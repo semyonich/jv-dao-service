@@ -73,7 +73,7 @@ public class Application {
         carService.addDriverToCar(driverService.get(2L), carService.get(3L));
         System.out.println("Cars with drivers are: " + carService.getAll());
         System.out.println("Cars with driver with id=1 are: " + carService.getAllByDriver(1L));
-        System.out.println("Cars with driver with id=2 are: " + carService.getAllByDriver(2L));
+        System.out.println("Cars with driver with id=4 are: " + carService.getAllByDriver(4L));
         carService.removeDriverFromCar(driverService.get(1L), carService.get(3L));
         System.out.println("After remove driver(id=1) from car(id=3) cars are: "
                 + carService.getAll());
