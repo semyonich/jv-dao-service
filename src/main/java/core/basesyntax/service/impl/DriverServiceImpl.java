@@ -1,9 +1,10 @@
-package core.basesyntax.service;
+package core.basesyntax.service.impl;
 
 import core.basesyntax.dao.DriverDao;
 import core.basesyntax.lib.Inject;
 import core.basesyntax.lib.Service;
 import core.basesyntax.model.Driver;
+import core.basesyntax.service.DriverService;
 import java.util.List;
 
 @Service

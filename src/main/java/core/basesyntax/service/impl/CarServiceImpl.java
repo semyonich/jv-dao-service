@@ -1,10 +1,11 @@
-package core.basesyntax.service;
+package core.basesyntax.service.impl;
 
 import core.basesyntax.dao.CarDao;
 import core.basesyntax.lib.Inject;
 import core.basesyntax.lib.Service;
 import core.basesyntax.model.Car;
 import core.basesyntax.model.Driver;
+import core.basesyntax.service.CarService;
 import java.util.List;
 
 @Service

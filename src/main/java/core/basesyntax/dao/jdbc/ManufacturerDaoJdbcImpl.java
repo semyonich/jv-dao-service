@@ -18,10 +18,10 @@ import java.util.Optional;
 public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
     @Override
     public Manufacturer create(Manufacturer manufacturer) {
-        String createString = "INSERT INTO manufacturers (manufacturer_name, "
+        String createQuery = "INSERT INTO manufacturers (manufacturer_name, "
                 + "manufacturer_country) VALUES (?,?);";
         try (Connection connection = ConnectionUtil.getConnection();
-                PreparedStatement statement = connection.prepareStatement(createString,
+                PreparedStatement statement = connection.prepareStatement(createQuery,
                         Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, manufacturer.getName());
             statement.setString(2, manufacturer.getCountry());
@@ -32,16 +32,17 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
             }
             return manufacturer;
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to CREATE in DB " + manufacturer, e);
+            throw new DataProcessingException("Unable to CREATE manufacturer in DB "
+                    + manufacturer, e);
         }
     }
 
     @Override
     public Optional<Manufacturer> get(Long id) {
-        String getString = "SELECT * FROM manufacturers WHERE manufacturer_id=? AND deleted=false;";
+        String getQuery = "SELECT * FROM manufacturers WHERE manufacturer_id=? AND deleted=false;";
         Manufacturer manufacturer = null;
         try (Connection connection = ConnectionUtil.getConnection();
-                PreparedStatement statement = connection.prepareStatement(getString)) {
+                PreparedStatement statement = connection.prepareStatement(getQuery)) {
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -55,26 +56,26 @@ public class ManufacturerDaoJdbcImpl implements ManufacturerDao {
 
     @Override
     public List<Manufacturer> getAll() {
-        String getAllString = "SELECT * FROM manufacturers WHERE deleted=false";
+        String getAllQuery = "SELECT * FROM manufacturers WHERE deleted=false";
         List<Manufacturer> outputList = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection();
-                PreparedStatement statement = connection.prepareStatement(getAllString)) {
+                PreparedStatement statement = connection.prepareStatement(getAllQuery)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 outputList.add(makeManufacturer(resultSet));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable GET ALL manufacturers from DB", e);
+            throw new DataProcessingException("Unable to GET ALL manufacturers from DB", e);
         }
         return outputList;
     }
 
     @Override
     public Manufacturer update(Manufacturer manufacturer) {
-        String updateString = "UPDATE manufacturers SET manufacturer_name=?, manufacturer_country=?"
+        String updateQuery = "UPDATE manufacturers SET manufacturer_name=?, manufacturer_country=?"
                 + " WHERE manufacturer_id=? AND deleted=false;";
         try (Connection connection = ConnectionUtil.getConnection();
-                PreparedStatement statement = connection.prepareStatement(updateString)) {
+                PreparedStatement statement = connection.prepareStatement(updateQuery)) {
             statement.setString(1, manufacturer.getName());
             statement.setString(2, manufacturer.getCountry());
             statement.setLong(3, manufacturer.getId());
