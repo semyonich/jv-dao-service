@@ -52,8 +52,8 @@ public class CarDaoJdbcImpl implements CarDao {
             ResultSet carResultSet = carStatement.executeQuery();
             while (carResultSet.next()) {
                 Car car = makeCar(carResultSet);
-                List<Driver> thiCarDrivers = getCarDrivers(id);
-                car.setDrivers(thiCarDrivers);
+                List<Driver> thisCarDrivers = getCarDrivers(id);
+                car.setDrivers(thisCarDrivers);
                 return Optional.of(car);
             }
             return Optional.empty();
