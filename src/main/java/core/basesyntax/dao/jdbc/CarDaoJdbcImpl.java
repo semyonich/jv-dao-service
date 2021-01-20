@@ -47,7 +47,7 @@ public class CarDaoJdbcImpl implements CarDao {
                 + "ON c.manufacturer_id=m.manufacturer_id "
                 + "WHERE c.deleted=false AND c.car_id=?;";
         try (Connection connection = ConnectionUtil.getConnection();
-             PreparedStatement carStatement = connection.prepareStatement(getCarQuery)) {
+                PreparedStatement carStatement = connection.prepareStatement(getCarQuery)) {
             carStatement.setLong(1, id);
             ResultSet carResultSet = carStatement.executeQuery();
             while (carResultSet.next()) {
@@ -61,7 +61,6 @@ public class CarDaoJdbcImpl implements CarDao {
             throw new DataProcessingException("Unable to GET car from DB, id=" + id, e);
         }
     }
-
 
     @Override
     public List<Car> getAll() {
