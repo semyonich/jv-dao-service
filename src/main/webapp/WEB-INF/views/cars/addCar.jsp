@@ -6,8 +6,8 @@
 <body>
 <h2>Please enter Car model and license number</h2><br>
 <form method="post" action="${pageContext.request.contextPath}/cars/add">
-    Car model:<input type="text" name="carModel"><br><br>
-    Car manufacturer ID:<input type="number" name="manufacturerId"><br><br>
+    Car model:<input type="text" name="carModel" minlength="1" required><br><br>
+    Car manufacturer ID:<input type="number" name="manufacturerId" minlength="1" required><br><br>
     <button type="submit">Add Car</button>
 </form>
 </body>
