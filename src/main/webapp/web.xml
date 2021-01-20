@@ -6,12 +6,71 @@
 
     <servlet>
         <servlet-name>index</servlet-name>
-        <servlet-class>core.basesyntax.controllers.IndexController</servlet-class>
+        <servlet-class>core.basesyntax.controller.IndexController</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>index</servlet-name>
-        <url-pattern>/index</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>addDriver</servlet-name>
+        <servlet-class>core.basesyntax.controller.AddDriverController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addDriver</servlet-name>
+        <url-pattern>/drivers/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>allDrivers</servlet-name>
+        <servlet-class>core.basesyntax.controller.GetAllDriversController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>allDrivers</servlet-name>
+        <url-pattern>/drivers/all</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addManufacturer</servlet-name>
+        <servlet-class>core.basesyntax.controller.AddManufacturerController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addManufacturer</servlet-name>
+        <url-pattern>/manufacturers/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>allManufacturers</servlet-name>
+        <servlet-class>core.basesyntax.controller.GetAllManufacturersController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>allManufacturers</servlet-name>
+        <url-pattern>/manufacturers/all</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addCar</servlet-name>
+        <servlet-class>core.basesyntax.controller.AddCarController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addCar</servlet-name>
+        <url-pattern>/cars/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addDriverToCar</servlet-name>
+        <servlet-class>core.basesyntax.controller.AddDriverToCarController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addDriverToCar</servlet-name>
+        <url-pattern>/cars/drivers/add</url-pattern>
+    </servlet-mapping>
 </web-app>

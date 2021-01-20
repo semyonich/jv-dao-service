@@ -1,7 +1,7 @@
 package core.basesyntax.dao.jdbc;
 
 import core.basesyntax.dao.CarDao;
-import core.basesyntax.exceptions.DataProcessingException;
+import core.basesyntax.exception.DataProcessingException;
 import core.basesyntax.lib.Dao;
 import core.basesyntax.model.Car;
 import core.basesyntax.model.Driver;
