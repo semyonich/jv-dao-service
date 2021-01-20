@@ -46,20 +46,20 @@ public class CarDaoJdbcImpl implements CarDao {
                 + "INNER JOIN manufacturers m "
                 + "ON c.manufacturer_id=m.manufacturer_id "
                 + "WHERE c.deleted=false AND c.car_id=?;";
-        Car car = null;
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement carStatement = connection.prepareStatement(getCarQuery)) {
             carStatement.setLong(1, id);
             ResultSet carResultSet = carStatement.executeQuery();
             while (carResultSet.next()) {
-                car = makeCar(carResultSet);
+                Car car = makeCar(carResultSet);
+                List<Driver> thisCarDrivers = getCarDrivers(id);
+                car.setDrivers(thisCarDrivers);
+                return Optional.of(car);
             }
-            List<Driver> thiCarDrivers = getCarDrivers(id);
-            car.setDrivers(thiCarDrivers);
+            return Optional.empty();
         } catch (SQLException e) {
             throw new DataProcessingException("Unable to GET car from DB, id=" + id, e);
         }
-        return Optional.ofNullable(car);
     }
 
     @Override
