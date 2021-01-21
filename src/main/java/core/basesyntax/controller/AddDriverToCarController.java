@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddDriverToCarController extends HttpServlet {
-    private static final String PACKAGE_NAME = "core.basesyntax";
-    private static final Injector injector = Injector.getInstance(PACKAGE_NAME);
+    private static final Injector injector = Injector.getInstance("core.basesyntax");
     private final CarService carService = (CarService) injector
             .getInstance(CarService.class);
     private final DriverService driverService = (DriverService) injector
@@ -22,7 +21,7 @@ public class AddDriverToCarController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/views/cars/drivers/addDriverToCar.jsp")
+        req.getRequestDispatcher("/WEB-INF/views/cars/drivers/add.jsp")
                 .forward(req, resp);
     }
 

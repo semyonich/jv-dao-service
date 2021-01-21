@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class GetAllManufacturersController extends HttpServlet {
-    private static final String PACKAGE_NAME = "core.basesyntax";
-    private static final Injector injector = Injector.getInstance(PACKAGE_NAME);
+    private static final Injector injector = Injector.getInstance("core.basesyntax");
     private final ManufacturerService manufacturerService = (ManufacturerService) injector
             .getInstance(ManufacturerService.class);
 

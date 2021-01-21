@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class GetAllDriversController extends HttpServlet {
-    private static final String PACKAGE_NAME = "core.basesyntax";
-    private static final Injector injector = Injector.getInstance(PACKAGE_NAME);
+    private static final Injector injector = Injector.getInstance("core.basesyntax");
     private final DriverService driverService = (DriverService) injector
             .getInstance(DriverService.class);
 

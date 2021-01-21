@@ -10,15 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddManufacturerController extends HttpServlet {
-    private static final String PACKAGE_NAME = "core.basesyntax";
-    private static final Injector injector = Injector.getInstance(PACKAGE_NAME);
+    private static final Injector injector = Injector.getInstance("core.basesyntax");
     private final ManufacturerService manufacturerService = (ManufacturerService) injector
             .getInstance(ManufacturerService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/views/manufacturers/addManufacturer.jsp")
+        req.getRequestDispatcher("/WEB-INF/views/manufacturers/add.jsp")
                 .forward(req, resp);
     }
 
