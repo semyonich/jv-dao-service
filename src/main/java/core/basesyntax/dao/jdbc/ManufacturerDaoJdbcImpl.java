@@ -1,7 +1,7 @@
 package core.basesyntax.dao.jdbc;
 
 import core.basesyntax.dao.ManufacturerDao;
-import core.basesyntax.exceptions.DataProcessingException;
+import core.basesyntax.exception.DataProcessingException;
 import core.basesyntax.lib.Dao;
 import core.basesyntax.model.Manufacturer;
 import core.basesyntax.util.ConnectionUtil;
