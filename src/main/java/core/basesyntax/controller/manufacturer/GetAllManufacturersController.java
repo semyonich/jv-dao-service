@@ -1,4 +1,4 @@
-package core.basesyntax.controller;
+package core.basesyntax.controller.manufacturer;
 
 import core.basesyntax.lib.Injector;
 import core.basesyntax.model.Manufacturer;

@@ -167,16 +167,18 @@ public class CarDaoJdbcImpl implements CarDao {
 
     private Driver makeDriver(ResultSet resultSet) throws SQLException {
         String name = resultSet.getString("driver_name");
-        String driverLicense = resultSet.getString("license");
+        String driverLicense = resultSet.getString("driver_license");
+        String driverLogin = resultSet.getString("driver_login");
+        String driverPassword = resultSet.getString("driver_password");
         Long driverId = resultSet.getObject("driver_id", Long.class);
-        Driver driver = new Driver(name, driverLicense);
+        Driver driver = new Driver(name, driverLicense, driverLogin, driverPassword);
         driver.setId(driverId);
         return driver;
     }
 
     private List<Driver> getCarDrivers(Long carId) {
-        String getCarQuery = "SELECT cd.driver_id, d.driver_name AS driver_name, "
-                + "d.driver_license AS license "
+        String getCarQuery = "SELECT cd.driver_id AS driver_id, driver_name, "
+                + "driver_license, driver_login, driver_password "
                 + "FROM cars_drivers cd "
                 + "INNER JOIN drivers d "
                 + "ON cd.driver_id=d.driver_id "
@@ -189,10 +191,10 @@ public class CarDaoJdbcImpl implements CarDao {
             while (driverResultSet.next()) {
                 drivers.add(makeDriver(driverResultSet));
             }
+            return drivers;
         } catch (SQLException e) {
             throw new DataProcessingException("Unable to GET drivers for car from DB, id="
                     + carId, e);
         }
-        return drivers;
     }
 }

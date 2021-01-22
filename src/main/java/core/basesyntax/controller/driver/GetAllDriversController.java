@@ -1,15 +1,16 @@
-package core.basesyntax.controller;
+package core.basesyntax.controller.driver;
 
 import core.basesyntax.lib.Injector;
 import core.basesyntax.model.Driver;
 import core.basesyntax.service.DriverService;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AddDriverController extends HttpServlet {
+public class GetAllDriversController extends HttpServlet {
     private static final Injector injector = Injector.getInstance("core.basesyntax");
     private final DriverService driverService = (DriverService) injector
             .getInstance(DriverService.class);
@@ -17,15 +18,8 @@ public class AddDriverController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/views/drivers/add.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-        String driverName = req.getParameter("driver_name");
-        String licenseNumber = req.getParameter("license_number");
-        driverService.create(new Driver(driverName, licenseNumber));
-        resp.sendRedirect(req.getContextPath() + "/");
+        List<Driver> allDrivers = driverService.getAll();
+        req.setAttribute("drivers", allDrivers);
+        req.getRequestDispatcher("/WEB-INF/views/drivers/all.jsp").forward(req, resp);
     }
 }
