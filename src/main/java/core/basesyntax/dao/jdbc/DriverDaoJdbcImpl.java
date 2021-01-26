@@ -19,12 +19,14 @@ public class DriverDaoJdbcImpl implements DriverDao {
     @Override
     public Driver create(Driver driver) {
         String createQuery = "INSERT INTO drivers (driver_name, "
-                + "driver_license) VALUES (?,?);";
+                + "driver_license, driver_login, driver_password) VALUES (?,?,?,?);";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement statement = connection.prepareStatement(createQuery,
                         Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, driver.getName());
             statement.setString(2, driver.getLicenseNumber());
+            statement.setString(3, driver.getLogin());
+            statement.setString(4, driver.getPassword());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -48,7 +50,7 @@ public class DriverDaoJdbcImpl implements DriverDao {
                 driver = makeDriver(resultSet);
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Unable to GET manufacturer from DB, id=" + id, e);
+            throw new DataProcessingException("Unable to GET driver from DB, id=" + id, e);
         }
         return Optional.ofNullable(driver);
     }
@@ -71,13 +73,15 @@ public class DriverDaoJdbcImpl implements DriverDao {
 
     @Override
     public Driver update(Driver driver) {
-        String updateQuery = "UPDATE drivers SET driver_name=?, driver_license=?"
-                + " WHERE driver_id=? AND deleted=false;";
+        String updateQuery = "UPDATE drivers SET driver_name=?, driver_license=?, driver_login=?,"
+                + " driver_password=?" + " WHERE driver_id=? AND deleted=false;";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement statement = connection.prepareStatement(updateQuery)) {
             statement.setString(1, driver.getName());
             statement.setString(2, driver.getLicenseNumber());
-            statement.setLong(3, driver.getId());
+            statement.setString(3, driver.getLogin());
+            statement.setString(4, driver.getPassword());
+            statement.setLong(5, driver.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DataProcessingException("Unable to UPDATE driver in DB: "
@@ -102,14 +106,33 @@ public class DriverDaoJdbcImpl implements DriverDao {
 
     private Driver makeDriver(ResultSet resultSet) {
         try {
+            Long driverId = resultSet.getObject("driver_id", Long.class);
             String name = resultSet.getString("driver_name");
             String driverLicense = resultSet.getString("driver_license");
-            Long driverId = resultSet.getObject("driver_id", Long.class);
-            Driver driver = new Driver(name, driverLicense);
+            String driverLogin = resultSet.getString("driver_login");
+            String driverPassword = resultSet.getString("driver_password");
+            Driver driver = new Driver(name, driverLicense, driverLogin, driverPassword);
             driver.setId(driverId);
             return driver;
         } catch (SQLException e) {
             throw new DataProcessingException("Unable to make driver from DB", e);
         }
+    }
+
+    @Override
+    public Optional<Driver> findByLogin(String login) {
+        String getQuery = "SELECT * FROM drivers WHERE driver_login=? AND deleted=false;";
+        Driver driver = null;
+        try (Connection connection = ConnectionUtil.getConnection();
+                PreparedStatement statement = connection.prepareStatement(getQuery)) {
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                driver = makeDriver(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DataProcessingException("Unable to GET driver from DB, login=" + login, e);
+        }
+        return Optional.ofNullable(driver);
     }
 }

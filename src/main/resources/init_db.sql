@@ -9,6 +9,8 @@ CREATE TABLE `taxi-service`.`drivers` (
                                           `driver_id` BIGINT(11) NOT NULL AUTO_INCREMENT,
                                           `driver_name` VARCHAR(100) NOT NULL,
                                           `driver_license` VARCHAR(150) NOT NULL,
+                                          `driver_login` VARCHAR(100) NOT NULL,
+                                          `driver_password` VARCHAR(100) NOT NULL,
                                           `deleted` TINYINT NOT NULL DEFAULT 0,
                                           PRIMARY KEY (`driver_id`));
 CREATE TABLE `taxi-service`.`cars` (
