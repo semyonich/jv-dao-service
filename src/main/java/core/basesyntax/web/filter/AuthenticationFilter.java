@@ -1,7 +1,5 @@
 package core.basesyntax.web.filter;
 
-import core.basesyntax.lib.Injector;
-import core.basesyntax.service.DriverService;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,10 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AuthenticationFilter implements Filter {
     private static final String DRIVER_ID = "driver_id";
-    private static final Injector injector = Injector.getInstance("core.basesyntax");
     private final Set<String> allowedUrls = new HashSet<>();
-    private final DriverService driverService = (DriverService) injector
-            .getInstance(DriverService.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
